@@ -1,4 +1,4 @@
-define(['app/common/services/passport/passport-service'], function() {
+define(['app/common/services/passport/passport-service', 'app/common/services/passport/passport-service'], function() {
 
     function headerCtrl($rootScope, $scope, $modal, $state, passportService) {
 
@@ -14,6 +14,15 @@ define(['app/common/services/passport/passport-service'], function() {
     	$scope.form = null;
     	$scope.getPwdResetCodeText = '获取验证码';
     	$scope.getRegisterCodeText = '获取验证码';
+
+        var tab = {
+            SPONSOR: {id: 0, name: "sponsor", label: "发起人手册", path: "sponsor"},
+            ABOUT: {id: 0, name: "sponsor", label: "关于产品", path: "about"},
+            GET_SAMPLE: {id: 0, name: "sponsor", label: "获取样衣", path: "get-sample"}
+        };
+
+        $scope.tabs = [tab.SPONSOR, tab.ABOUT, tab.GET_SAMPLE];
+
         var passportModal = $modal({
             scope: $scope,
             templateUrl: 'src/common/layout/header/passport.html',
@@ -114,6 +123,11 @@ define(['app/common/services/passport/passport-service'], function() {
         $scope.changeLocation = function(state){
             $state.go(state);
         };
+
+        $scope.switchTab = function(tab) {
+            console.log("aa");
+        };
+
     }
 
     headerCtrl.$inject = ['$rootScope', '$scope', '$modal', '$state', 'passportService'];

@@ -1,5 +1,6 @@
 define(['app/common/services/passport/api-interceptor'], function(APIInterceptor) {
-    function config($stateProvider, $urlRouterProvider, $httpProvider) {
+    function config($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
+        $locationProvider.html5Mode(true);
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
@@ -16,8 +17,24 @@ define(['app/common/services/passport/api-interceptor'], function(APIInterceptor
                     },
                     footer: {
                         templateUrl: 'src/common/layout/footer/footer.html'
+                    }
+                }
+            })
+            .state('sponsor', {
+                url: '/sponsor',
+                views: {
+                    header: {
+                        templateUrl: 'src/common/layout/header/header.html',
+                        controller: 'headerCtrl'
                     },
-                },
+                    body: {
+                        templateUrl: 'src/sponsor/sponsor.html',
+                        controller: ''
+                    },
+                    footer: {
+                        templateUrl: 'src/common/layout/footer/footer.html'
+                    }
+                }
             })
             .state('account', {
                 url: '/account',
@@ -76,7 +93,7 @@ define(['app/common/services/passport/api-interceptor'], function(APIInterceptor
 
         $httpProvider.interceptors.push(APIInterceptor);
     }
-    config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
+    config.$inject = ['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider'];
 
     return config;
 });
